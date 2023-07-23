@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+    @apply max-w-[1300px] mx-auto h-full w-full px-5;
+}
+.link.active{
+    @apply text-teal-dark;
+}
+.mantine-Carousel-indicator{
+    @apply bg-teal-light w-1.5 h-4;
+}
+.mantine-Carousel-indicator[data-active]{
+    @apply bg-teal-dark;
+}
+.mantine-Carousel-control{
+    @apply text-teal-dark bg-gray-dark flex items-center justify-center;
+}
+.mantine-dzcmby{
+    @apply p-0;
+}
+
+.links {
+    @apply items-center hidden sm:flex gap-4;
+}
+@media screen and (max-width: 665px){
+    .links {
+        @apply absolute hidden left-0 w-full h-fit py-4 bg-gray-dark top-full z-[9999] px-5;
+    }
+    .links.activeMobileMenu {
+        @apply flex;
+    }
+}
+.burger {
+    @apply text-text-dark hidden p-2 bg-transparent rounded-md;
+}
+@media screen and (max-width: 665px){
+    .burger {
+        display: block;
+    }
+}
+
+
+.singlePageBannerLayer{
+    @apply before:absolute before:w-full before:h-full before:bg-transparents-dark
+}
+
+
+.section{
+    @apply py-14;
+}
+
+
+*{margin:0;padding:0;box-sizing:border-box;list-style-type:none;text-decoration:none;-webkit-tap-highlight-color: transparent;}
+body {
+    font-family: "Inter", sans-serif;
+    @apply bg-gray-light;
+}
