@@ -13,7 +13,7 @@ export const Routes = createBrowserRouter([
       children: [
          {path: "/", element: <HomePage/>},
          {path: "/movies", element: <MoviesPage/>},
-         {path: "/movies/search/:movieId", element: <MoviesPage/>},
+         {path: "/movies/search", element: <MoviesPage/>},
          {path: "/single/:id", element: <SinglePage/>},
          {path: "/favorites", element: <FavoritesPage/>},
          {path: "/watch-later", element: <WatchLaterPage/>}

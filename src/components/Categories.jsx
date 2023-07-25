@@ -12,7 +12,7 @@ export default function Categories({ genres }) {
                      <NavLink
                         key={genre.id}
                         to={`/movies?with_genres=${genre.id}`}
-                        className="text-text-dark font-medium px-3 py-1.5 text-[16px]"
+                        className="text-text-dark font-medium px-3 py-1.5 text-[16px] hover:text-teal-dark"
                      >
                         {genre.name}
                      </NavLink>

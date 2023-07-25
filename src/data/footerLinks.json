@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "path": "/",
+    "title": "home"
+  },
+  {
+    "id": 2,
+    "path": "/movies",
+    "title": "movies"
+  },
+  {
+    "id": 3,
+    "path": "/watch-later",
+    "title": "watch later"
+  },
+  {
+    "id": 4,
+    "path": "/favorites",
+    "title": "favorites"
+  }
+]

@@ -66,9 +66,13 @@ export default function SinglePageOverView({data,isLoading}) {
                            </span>
                         </h3>
                      </div>
-                     <div className="">
-                        <button className="py-2 px-4 bg-gray-dark">add to favorites</button>
-                        <button className="py-2 px-4 bg-gray-dark">add to watch later</button>
+                     <div className="flex gap-2">
+                        <button className="py-2 px-4 bg-transparents-darkest rounded-md text-text-dark capitalize">
+                           add to favorites
+                        </button>
+                        <button className="py-2 px-4 bg-transparents-darkest rounded-md text-text-dark capitalize">
+                           add to watch later
+                        </button>
                      </div>
                   </div>
                </div>

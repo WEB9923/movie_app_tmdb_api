@@ -25,7 +25,8 @@ export default {
         dark: "#9ca3a9"
       },
       transparents: {
-        dark: "rgba(0,0,0,0.83)"
+        dark: "rgba(0,0,0,0.83)",
+        darkest:"rgb(0,0,0)"
       }
     }
   },

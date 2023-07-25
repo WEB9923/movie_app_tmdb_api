@@ -6,6 +6,7 @@ import {getAllData} from "../services/GetAllData.js";
 import {Link} from "react-router-dom";
 import Loader from "./Loader.jsx";
 import {BiShow} from "react-icons/bi";
+import {motion} from "framer-motion";
 
 
 export default function Header() {
@@ -64,7 +65,23 @@ export default function Header() {
                            alt={banner.original_title}
                            className="w-full h-full object-cover object-center z-10"
                         />
-                        <div
+                        <motion.div
+                           initial={{
+                              y:50,
+                              opacity:0,
+                              x:"50%"
+                           }}
+                           whileInView={{
+                              y:0,
+                              x:"-50%",
+                              opacity:1
+                           }}
+                           transition={{
+                              duration:0.5,
+                              type:"spring",
+                              stiffness:70,
+                              bounce:1
+                           }}
                            className="absolute bottom-20 left-1/2 transform -translate-x-2/4 z-50 w-3/4 flex flex-col gap-3"
                         >
                            <div className="pointer-events-none select-none flex flex-col gap-3">
@@ -106,7 +123,7 @@ export default function Header() {
                                  <BiShow size={25}/>
                               </Link>
                            </div>
-                        </div>
+                        </motion.div>
                      </Carousel.Slide>
                   )
                })}

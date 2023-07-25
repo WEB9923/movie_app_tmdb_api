@@ -7,29 +7,32 @@ import {useLocation} from "react-router-dom";
 import Card from "../components/Card.jsx";
 import Loader from "../components/Loader.jsx";
 
-
 export default function MoviesPage() {
    const [data,setData] = useState([]);
    const [genres,setGenres] = useState([]);
-   const [isLoading,setIsloading] = useState(false);
+   const [isLoading,setIsLoading] = useState(false);
+   const [page,setPage] = useState(1);
    const location = useLocation();
-   console.log(
-      location
-   )
+   let searchQuery = location.search;
+   const newQuery = new URLSearchParams(searchQuery);
 
    const fetchAllMovie = async () => {
       try {
-         setIsloading(true);
-         let link = await getAllData("discover","movie");
-         if(location.pathname) {
-            return await getAllData("discover",`movie/${location.search}`);
+         setIsLoading(true);
+         let link = await getAllData("discover",`movie?page=${page}`);
+         if(searchQuery) {
+            if(newQuery.has("with_genres")) {
+               return await getAllData("discover",`movie${searchQuery}&page=${page}`);
+            } else if(newQuery.has("query")) {
+               return await getAllData("search",`movie${searchQuery}&?page=${page}`);
+            }
          } else {
             return await link;
          }
       } catch (err) {
          console.log(err)
       } finally {
-         setIsloading(false);
+         setIsLoading(false);
       }
    }
 
@@ -46,8 +49,11 @@ export default function MoviesPage() {
       fetchAllMovie().then((res) => {
          setData(res);
       })
-   },[location]);
+   },[searchQuery,page]);
 
+   useEffect(() => {
+      newQuery.append("page",page.toString())
+   },[])
 
 
    useEffect(() => {
@@ -58,20 +64,39 @@ export default function MoviesPage() {
 
 
    const pagination = usePagination({
-      total:data?.total_pages
+      total:data?.total_pages,
+      initialPage: 1,
+      onChange: (page) => {setPage(page)},
+      next: () => page + 1,
+      previous: () => page - 1
    })
-   console.log(data)
+
    return (
       <>
          <section className="section">
             <div className="container flex justify-between gap-5">
                <Categories genres={genres}/>
-               <div className="w-[calc(100%-270px-30px)] min-h-screen flex flex-1 flex-wrap gap-3">
-                  {isLoading ? <Loader/> : data?.results?.map((mov) => {
-                     return (
-                        <Card key={mov.id} movie={mov}/>
-                     )
-                  })}
+               <div className="w-[calc(100%-270px-30px)] min-h-screen relative">
+                  <div className="flex justify-between h-12 items-center">
+                     <h3 className="font-bold text-text-dark text-sm capitalize">
+                        total movies: {data?.total_results}
+                     </h3>
+                     {searchQuery && <button
+                        onClick={() => {
+                           console.log("clicked")
+                        }}
+                        className="bg-red-dark py-1.5 px-3 rounded-md text-text-light capitalize font-medium text-sm"
+                     >
+                        clear search or category
+                     </button>}
+                  </div>
+                  <div className="flex flex-1 flex-wrap gap-3">
+                     {isLoading ? <Loader/> : data?.results?.map((mov,index) => {
+                        return (
+                           <Card key={mov.id} movie={mov} index={index}/>
+                        )
+                     })}
+                  </div>
                </div>
             </div>
             <Pagination
@@ -82,6 +107,9 @@ export default function MoviesPage() {
                siblings={3}
                position="center"
                mt={40}
+               onPreviousPage={() => pagination.previous()}
+               onNextPage={() => pagination.next()}
+               onChange={(page) => setPage(page)}
             />
          </section>
       </>
